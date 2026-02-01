@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:user_profile/user_prof.dart';
+import 'package:user_profile/User/user_prof.dart';
 
 void main() {
   runApp(const MyApp());
