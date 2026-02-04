@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:user_profile/User/user_prof.dart';
+import 'User/db/hiv.dart';
+import'package:hive/hive.dart';
 
 void main() {
+  var path = Directory.current.path;
+  Hive
+    ..init(path)
+    ..registerAdapter(UserAdapter());
+
   runApp(const MyApp());
 
 }
