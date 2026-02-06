@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:user_profile/User/db/hiv.dart';
 
 class ProfileSettingsPage extends StatefulWidget {
   const ProfileSettingsPage({super.key});
@@ -8,6 +10,22 @@ class ProfileSettingsPage extends StatefulWidget {
 }
 
 class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController(text: 'John Doe');
+    _emailController = TextEditingController(text: 'john.doe@textrack.com');
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +73,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
               children: [
                 const CircleAvatar(
                   radius: 48,
-                  backgroundImage: AssetImage(""), // placeholder
+                  backgroundImage: AssetImage("assets/download.jpeg"), // placeholder
                 ),
                 Positioned(
                   bottom: 0,
@@ -73,13 +91,13 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
 
             //NAME
             _buildLabel("FULL NAME"),
-            _buildTextField("John Doe"),
+            _buildTextField("John Doe", controller: _nameController),
 
             const SizedBox(height: 16),
 
             // EMAIL
             _buildLabel("EMAIL"),
-            _buildTextField("john.doe@textrack.com"),
+            _buildTextField("john.doe@textrack.com", controller: _emailController),
 
             const SizedBox(height: 16),
 
@@ -152,11 +170,23 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton.icon(
-                      onPressed: () {},
-                      icon: Icon(Icons.sync),
-                      label: Text("Sync Now", style: TextStyle(fontSize: 12),),
+                      onPressed: () async {
+                        final user = User(
+                          name: _nameController.text.trim(),
+                          email: _emailController.text.trim(),
+                          role: 'Warehouse Manager',
+                        );
+                        final box = await Hive.openBox<User>('users');
+                        await box.put('current', user);
+                        if (!mounted) return;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Profile synced')),
+                        );
+                      },
+                      icon: const Icon(Icons.sync),
+                      label: const Text("Sync Now", style: TextStyle(fontSize: 12),),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF0A2540),
+                        backgroundColor: const Color(0xFF0A2540),
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -215,7 +245,9 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
             SizedBox(
               width: double.infinity,
               child: OutlinedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+
+                },
                 icon: const Icon(Icons.logout),
                 label: const Text("Logout"),
                 style: OutlinedButton.styleFrom(
@@ -257,8 +289,9 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
     );
   }
 
-  static Widget _buildTextField(String value) {
+  static Widget _buildTextField(String value, {TextEditingController? controller}) {
     return TextField(
+      controller: controller,
       decoration: InputDecoration(
         hintText: value,
         filled: true,
