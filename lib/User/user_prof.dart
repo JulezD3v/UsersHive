@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:user_profile/User/db/hiv.dart';
+import 'package:user_profile/User/DB/hiv.dart';
+import 'package:user_profile/User/employees.dart';
 
 class ProfileSettingsPage extends StatefulWidget {
   const ProfileSettingsPage({super.key});
@@ -16,8 +17,8 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController(text: 'John Doe');
-    _emailController = TextEditingController(text: 'john.doe@textrack.com');
+    _nameController = TextEditingController();
+    _emailController = TextEditingController();
   }
 
   @override
@@ -116,12 +117,37 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                     "Warehouse Manager",
                     style: TextStyle(fontSize: 16),
                   ),
-                  Icon(Icons.lock, color:Color(0xFF0A2540)),
+                  Icon(Icons.person_pin_rounded, color:Color(0xFF0A2540)),
                 ],
               ),
             ),
 
             const SizedBox(height: 24),
+
+            // Teams (Also LOCKED)changed by admin
+            _buildLabel("Team"),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF1F2F6),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "Other co-workers Role",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  IconButton(onPressed:(){
+                    Navigator.push(context,MaterialPageRoute(builder: (_)=> Employees() ));
+                  },                 
+                  icon: const Icon(Icons.lock, color:Color(0xFF0A2540)))
+                ],
+              ),
+            ),
+
+const SizedBox(height: 24),
 
             // SYNC STATUS CARD
             _buildCard(
@@ -139,6 +165,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                           ),
                         ),
                       ),
+                      
                       CircleAvatar(
                         radius: 14,
                         backgroundColor: Color(0xFFE6F8EC),
@@ -235,7 +262,9 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
                 ),
                 title: const Text("Change Password"),
                 trailing: const Icon(Icons.chevron_right),
-                onTap: () {},
+                onTap: () {
+                  //...
+                },
               ),
             ),
 
@@ -294,12 +323,14 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
       controller: controller,
       decoration: InputDecoration(
         hintText: value,
-        filled: true,
+        hintStyle: const TextStyle(fontWeight: FontWeight.w300),
+        filled: false, // if true use code line 307
         fillColor: Colors.white,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,
         ),
+        //enabled: controller?.text.isNotEmpty??false, 
       ),
     );
   }
