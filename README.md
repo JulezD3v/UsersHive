@@ -1,6 +1,7 @@
 # user_profile
 
-A new Flutter project.
+Experimental - To be merged with ledger one
+DTO - Data Transfer Object
 
 ## Getting Started
 
