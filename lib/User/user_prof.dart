@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:user_profile/User/DB/hiv.dart';
-import 'package:user_profile/User/employees.dart';
+import 'package:user_profile/User/DB-user/hiv.dart';
+import 'package:user_profile/User/Employee/employees.dart';
+import 'package:user_profile/User/Widgets/build.dart';
+
 
 class ProfileSettingsPage extends StatefulWidget {
   const ProfileSettingsPage({super.key});
@@ -91,19 +93,19 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
             const SizedBox(height: 24),
 
             //NAME
-            _buildLabel("FULL NAME"),
-            _buildTextField("John Doe", controller: _nameController),
+            buildLabel("FULL NAME"),
+            buildTextField("John Doe", controller: _nameController),
 
             const SizedBox(height: 16),
 
             // EMAIL
-            _buildLabel("EMAIL"),
-            _buildTextField("john.doe@textrack.com", controller: _emailController),
+            buildLabel("EMAIL"),
+            buildTextField("john.doe@textrack.com", controller: _emailController),
 
             const SizedBox(height: 16),
 
             // ROLE (LOCKED)changed by admin
-            _buildLabel("ROLE"),
+            buildLabel("ROLE"),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
               decoration: BoxDecoration(
@@ -125,7 +127,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
             const SizedBox(height: 24),
 
             // Teams (Also LOCKED)changed by admin
-            _buildLabel("Team"),
+            buildLabel("Team"),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
               decoration: BoxDecoration(
@@ -150,7 +152,7 @@ class _ProfileSettingsPageState extends State<ProfileSettingsPage> {
 const SizedBox(height: 24),
 
             // SYNC STATUS CARD
-            _buildCard(
+            buildCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -239,22 +241,22 @@ const SizedBox(height: 24),
 
             Row(
               children: const [
-                Expanded(child: _StatCard("1,240", "Total Scans", Colors.blue)),
+                Expanded(child: StatCard("1,240", "Total Scans", Colors.blue)),
                 SizedBox(width: 12),
-                Expanded(child: _StatCard("Oct 24", "Last Active", Colors.black)),
+                Expanded(child: StatCard("Oct 24", "Last Active", Colors.black)),
               ],
             ),
 
             const SizedBox(height: 24),
 
             // META INFO
-            _buildInfoRow("Member Since", "Jan 12, 2023"),
-            _buildInfoRow("Last Login", "Today, 09:41 AM"),
+            buildInfoRow("Member Since", "Jan 12, 2023"),
+            buildInfoRow("Last Login", "Today, 09:41 AM"),
 
             const SizedBox(height: 16),
 
             // CHANGE PASSWORD
-            _buildCard(
+            buildCard(
               child: ListTile(
                 leading: const CircleAvatar(
                   backgroundColor: Color(0xFFEAF0FF),
@@ -301,105 +303,6 @@ const SizedBox(height: 24),
       ),
     );
   }
-
-  // -------- HELPERS --------
-
-  static Widget _buildLabel(String text) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Text(
-        text,
-        style: const TextStyle(
-          color: Colors.grey,
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
-  }
-
-  static Widget _buildTextField(String value, {TextEditingController? controller}) {
-    return TextField(
-      controller: controller,
-      decoration: InputDecoration(
-        hintText: value,
-        hintStyle: const TextStyle(fontWeight: FontWeight.w300),
-        filled: false, // if true use code line 307
-        fillColor: Colors.white,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide.none,
-        ),
-        //enabled: controller?.text.isNotEmpty??false, 
-      ),
-    );
-  }
-
-  static Widget _buildCard({required Widget child}) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 6,
-            offset: Offset(0, 3),
-          )
-        ],
-      ),
-      child: child,
-    );
-  }
-
-  static Widget _buildInfoRow(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label, style: const TextStyle(color: Colors.grey)),
-          Text(value, style: const TextStyle(fontWeight: FontWeight.w500)),
-        ],
-      ),
-    );
-  }
 }
 
-// STAT CARD
-class _StatCard extends StatelessWidget {
-  final String value;
-  final String label;
-  final Color color;
-
-  const _StatCard(this.value, this.label, this.color);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: Column(
-        children: [
-          Text(
-            value,
-            style: TextStyle(
-              color: color,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            label,
-            style: const TextStyle(color: Colors.grey, fontSize: 12),
-          ),
-        ],
-      ),
-    );
-  }
-}
+ 
