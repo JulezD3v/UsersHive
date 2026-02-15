@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:user_profile/User/user_prof.dart';
+import 'package:user_profile/User/user_opt/user_prof.dart';
 import 'package:user_profile/User/Widgets/employee_widget.dart';
 
 class Employees extends StatefulWidget {

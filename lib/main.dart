@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:user_profile/User/user_prof.dart';
-import 'User/DB-user/hiv.dart';
+import 'package:user_profile/User/user_opt/user_prof.dart';
+import 'User/user_opt/DB-user/hiv.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 // Adapter will be generated into `lib/User/db/hiv.g.dart` and included
 // via the `part` directive in that file. No direct import needed here.
