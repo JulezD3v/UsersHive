@@ -277,7 +277,6 @@ const SizedBox(height: 24),
               width: double.infinity,
               child: OutlinedButton.icon(
                 onPressed: () {
-
                 },
                 icon: const Icon(Icons.logout),
                 label: const Text("Logout"),

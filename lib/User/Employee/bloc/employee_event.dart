@@ -1,8 +1,11 @@
-part of 'employee_bloc.dart';
+import 'package:user_profile/User/Employee/domain/employee_entity.dart';
 
-sealed class EmployeeEvent extends Equatable {
-  const EmployeeEvent();
+abstract class EmployeeEvent {}
 
-  @override
-  List<Object> get props => [];
+class LoadEmployees extends EmployeeEvent {}
+
+class AddEmployee extends EmployeeEvent {
+  final Employee employee;
+
+  AddEmployee(this.employee);
 }

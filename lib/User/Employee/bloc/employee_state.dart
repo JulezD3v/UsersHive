@@ -1,10 +1,7 @@
-part of 'employee_bloc.dart';
+import 'package:user_profile/User/Employee/domain/employee_entity.dart';
 
-sealed class EmployeeState extends Equatable {
-  const EmployeeState();
-  
-  @override
-  List<Object> get props => [];
+class EmployeeState {
+  final List<Employee> employees;
+
+  EmployeeState({required this.employees});
 }
-
-final class EmployeeInitial extends EmployeeState {}

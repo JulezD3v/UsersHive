@@ -1,5 +1,11 @@
+enum EmployeeStatus {
+  active,
+  onLeave,
+  inactive,
+}
+
 class Employee {
-  final String status;
+  final EmployeeStatus status;
   final String name;
   final String role;
 

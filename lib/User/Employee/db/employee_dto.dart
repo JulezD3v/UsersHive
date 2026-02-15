@@ -3,7 +3,7 @@ import'package:hive/hive.dart';
 
 part 'employee_dto.g.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 0)
 class EmployeeDto extends HiveObject{
   @HiveField(0)
   final String name;
