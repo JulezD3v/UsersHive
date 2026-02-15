@@ -10,8 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  hive: ^2.2.0
-  hive_flutter: ^1.1.0
+  hive: ^2.2.0 # storage engine
+  hive_flutter: ^1.1.0 # work in flutter
   cupertino_icons: ^1.0.8
   path_provider: ^2.1.5
   bloc: ^9.2.0
@@ -19,8 +19,8 @@ dependencies:
   equatable: ^2.0.5
 
 dev_dependencies:
-  build_runner: ^2.3.0
-  hive_generator: ^2.0.0
+  build_runner: ^2.3.0 #generates the .g file
+  hive_generator: ^2.0.0 # helps createit
   flutter_test:
     sdk: flutter
     
