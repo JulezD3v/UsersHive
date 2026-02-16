@@ -4,13 +4,13 @@ import 'package:user_profile/User/Employee/domain/employee_mapper.dart';
 
 class EmployeeUseCase {
 
-  final EmployeeDatasource datasource;
+  final EmployeeDataSource datasource;
 
   EmployeeUseCase(this.datasource);
 
   // Get all employees
-  List<Employee> getEmployees() {
-    final dtos = datasource.getEmployees();
+  Future<List<Employee>> getEmployees() async {
+    final dtos = await datasource.getEmployees();
     return dtos.map(EmployeeMapper.toEntity).toList();
   }
 
@@ -20,3 +20,6 @@ class EmployeeUseCase {
     await datasource.addEmployee(dto);
   }
 }
+
+//what the app wants
+//usecase makes transition to firebase muuuch easier

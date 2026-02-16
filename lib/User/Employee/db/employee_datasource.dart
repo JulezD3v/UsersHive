@@ -2,21 +2,19 @@ import 'package:hive/hive.dart';
 import 'employee_dto.dart';
 
 class EmployeeDataSource {
-
   final Box<EmployeeDto> box;
 
   EmployeeDataSource(this.box);
 
-  Future<void> add(EmployeeDto dto) async {
+  Future<void> addEmployee(EmployeeDto dto) async {
     await box.put(dto.name, dto);
   }
 
-  List<EmployeeDto> getAll() {
+  Future<List<EmployeeDto>> getEmployees() async {
     return box.values.toList();
   }
 
-  Future<void> delete(String id) async {
-    await box.delete('names');
+  Future<void> deleteEmployee(String name) async {
+    await box.delete(name);
   }
 }
-// Only file that talks to hive
